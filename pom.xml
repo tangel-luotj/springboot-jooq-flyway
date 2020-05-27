@@ -34,6 +34,26 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.34_1</version>
         </dependency>
+
+        <!-- 引入jooq -->
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+            <version>3.13.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jooq/jooq-meta -->
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-meta</artifactId>
+            <version>3.13.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jooq/jooq-codegen -->
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-codegen</artifactId>
+            <version>3.13.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -42,7 +62,30 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <!-- https://mvnrepository.com/artifact/org.jooq/jooq-codegen -->
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq-codegen</artifactId>
+                <version>3.13.2</version>
+                <!-- The plugin should hook into the generate goal -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <generator>
+                        <name>org.jooq.util.DefaultGenerator</name>
+                        <!-- But the custom strategy is not yet compiled -->
+                        <strategy>
+                            <name>src/main/resources/JooqConfig.xml</name>
+                        </strategy>
+                    </generator>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-    
+
 </project>
