@@ -54,35 +54,29 @@
             <version>3.13.2</version>
         </dependency>
 
+        <!-- 引入flyway依赖 -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>5.2.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
+            <!-- 引入插件flyway -->
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <!-- https://mvnrepository.com/artifact/org.jooq/jooq-codegen -->
-                <groupId>org.jooq</groupId>
-                <artifactId>jooq-codegen</artifactId>
-                <version>3.13.2</version>
-                <!-- The plugin should hook into the generate goal -->
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>4.0.3</version>
                 <configuration>
-                    <generator>
-                        <name>org.jooq.util.DefaultGenerator</name>
-                        <!-- But the custom strategy is not yet compiled -->
-                        <strategy>
-                            <name>src/main/resources/JooqConfig.xml</name>
-                        </strategy>
-                    </generator>
+                    <!-- 数据库配置 -->
+                    <url>jdbc:mysql://localhost:3306/jooq_flyway?serverTimezone=Asia/Shanghai</url>
+                    <user>root</user>
+                    <password>123456</password>
+                    <driver>com.mysql.jdbc.Driver</driver>
+                    <schemas>jooq_flyway</schemas>
                 </configuration>
             </plugin>
         </plugins>
