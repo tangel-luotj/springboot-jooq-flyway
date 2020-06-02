@@ -8,4 +8,4 @@ CREATE TABLE user
     create_at       BIGINT(50)          NOT NULL DEFAULT 0 COMMENT '创建时间',
     PRIMARY KEY (id),
     unique key `user_name_unique` (`name`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT '引导页';
