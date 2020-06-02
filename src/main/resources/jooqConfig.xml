@@ -1,13 +1,13 @@
 <configuration>
     <jdbc>
         <driver>com.mysql.jdbc.Driver</driver>
-        <url>jdbc:mysql://localhost:3306/jooq</url>
+        <url>jdbc:mysql://localhost:3306/jooq_flyway</url>
         <user>root</user>
         <password>123456</password>
     </jdbc>
     <generator>
         <!-- 代码生成器 -->
-        <name>org.jooq.util.JavaGenerator</name>
+        <name>org.jooq.codegen.JavaGenerator</name>
         <database>
             <!--下面这两行是为view也生成代码的关键-->
             <!--force generating id'sfor everything in public schema, that has an 'id' field-->
@@ -19,10 +19,10 @@
 
             <!--include和exclude用于控制为数据库中哪些表生成代码-->
             <includes>.*</includes>
-            <!--<excludes></excludes>-->
+<!--            <excludes>schema_version</excludes>-->
 
             <!--数据库名称-->
-            <inputSchema>jooq</inputSchema>
+            <inputSchema>jooq_flyway</inputSchema>
         </database>
 
         <generate>
