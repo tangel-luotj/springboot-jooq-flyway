@@ -50,12 +50,6 @@
             <version>3.13.2</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jooq</artifactId>
-            <version>2.0.0.RELEASE</version>
-        </dependency>
-
         <!-- 引入flyway依赖 -->
         <dependency>
             <groupId>org.flywaydb</groupId>
@@ -162,61 +156,11 @@
                 </configuration>
             </plugin>
             <plugin>
-<<<<<<< HEAD
-                <groupId>org.jooq</groupId>
-                <artifactId>jooq-codegen-maven</artifactId>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <jdbc>
-                        <driver>com.mysql.jdbc.Driver</driver>
-                        <url>jdbc:mysql://localhost:3306/</url>
-                        <username>root</username>
-                        <password>123456</password>
-                    </jdbc>
-
-                    <generator>
-                        <database>
-                            <name>org.jooq.meta.mysql.MySQLDatabase</name>
-                            <!--include和exclude用于控制为数据库中哪些表生成代码-->
-                            <!--<includes>.*</includes>-->
-                            <excludes>schema_version</excludes>
-
-                            <!--数据库名称-->
-                            <inputSchema>jooq_flyway</inputSchema>
-                        </database>
-
-                        <generate>
-                            <!--生成dao和pojo-->
-                            <daos>true</daos>
-                            <pojos>true</pojos>
-                            <!--把数据库时间类型映射到java 8时间类型-->
-                            <javaTimeTypes>true</javaTimeTypes>
-                            <!--<interfaces>true</interfaces>-->
-                            <!--不在生成的代码中添加spring注释，比如@Repository-->
-                            <springAnnotations>false</springAnnotations>
-                        </generate>
-
-                        <target>
-                            <!--生成代码文件的包名及放置目录-->
-                            <packageName>com.luotj.jooqtest.gen</packageName>
-                            <directory>src/main/java</directory>
-                        </target>
-
-                    </generator>
-=======
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <source>8</source>
                     <target>8</target>
->>>>>>> c112044829dd185d68edd5b20ad418ec56fbaf08
                 </configuration>
             </plugin>
         </plugins>
