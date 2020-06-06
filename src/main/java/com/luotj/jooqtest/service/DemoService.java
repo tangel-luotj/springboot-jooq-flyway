@@ -4,10 +4,8 @@ import com.luotj.jooqtest.ui.controller.request.CreateRoleInfoRequest;
 import com.luotj.jooqtest.ui.controller.request.ModifyRoleInfoRequest;
 import com.luotj.jooqtest.ui.controller.response.RoleInfoResponse;
 import generated_jooq.tables.pojos.Role;
-import generated_jooq.tables.records.RoleRecord;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author create by luotj
