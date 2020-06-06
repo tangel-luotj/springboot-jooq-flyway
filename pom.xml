@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.luotj.jooq-test</groupId>
-    <artifactId>springboot-jooq</artifactId>
+    <artifactId>springboot-jooq-flyway</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
@@ -14,6 +14,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>2.3.0.RELEASE</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+        <!-- 注解验证 -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
         </dependency>
 
         <!-- 引入swagger -->
@@ -28,6 +35,12 @@
             <groupId>org.wisdom-framework</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.34_1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jdbc -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <version>2.3.0.RELEASE</version>
         </dependency>
 
         <!-- 引入jooq -->
@@ -49,19 +62,99 @@
             <artifactId>flyway-core</artifactId>
             <version>5.2.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.1</version>
+        </dependency>
 
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq-codegen-maven</artifactId>
+                <version>3.13.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <jdbc>
+                        <driver>com.mysql.jdbc.Driver</driver>
+                        <url>jdbc:mysql://localhost:3306/jooq_flyway</url>
+                        <user>root</user>
+                        <password>123456</password>
+                    </jdbc>
+                    <generator>
+                        <!-- 代码生成器 -->
+                        <name>org.jooq.codegen.JavaGenerator</name>
+                        <database>
+                            <!--下面这两行是为view也生成代码的关键-->
+                            <!--force generating id'sfor everything in public schema, that has an 'id' field-->
+                            <syntheticPrimaryKeys>public\..*\.id</syntheticPrimaryKeys>
+                            <!--name for fake primary key-->
+                            <overridePrimaryKeys>override_primmary_key</overridePrimaryKeys>
+
+                            <name>org.jooq.meta.mysql.MySQLDatabase</name>
+
+                            <!--include和exclude用于控制为数据库中哪些表生成代码-->
+                            <!--<includes>.*</includes>-->
+                            <excludes>schema_version</excludes>
+
+                            <!--数据库名称-->
+                            <inputSchema>jooq_flyway</inputSchema>
+                        </database>
+
+                        <generate>
+                            <!--生成dao和pojo-->
+                            <daos>false</daos>
+                            <pojos>true</pojos>
+                            <!--把数据库时间类型映射到java 8时间类型-->
+                            <javaTimeTypes>true</javaTimeTypes>
+                            <!-- 生成interface -->
+                            <interfaces>true</interfaces>
+                            <!--不在生成的代码中添加spring注释，比如@Repository-->
+                            <springAnnotations>true</springAnnotations>
+                            <deprecated>false</deprecated>
+                            <relations>true</relations>
+                            <immutablePojos>false</immutablePojos>
+                            <generatedAnnotation>false</generatedAnnotation>
+                            <serializablePojos>true</serializablePojos>
+                            <pojosToString>true</pojosToString>
+                            <pojosEqualsAndHashCode>true</pojosEqualsAndHashCode>
+                            <fluentSetters>true</fluentSetters>
+                            <validationAnnotations>true</validationAnnotations>
+                        </generate>
+
+                        <target>
+                            <!--生成代码文件的包名及放置目录-->
+                            <packageName>generated-jooq</packageName>
+                            <directory>src/main/java</directory>
+                        </target>
+                    </generator>
+                </configuration>
+            </plugin>
+
+
             <!-- 引入插件flyway -->
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>4.0.3</version>
                 <configuration>
-                    <!-- 数据库配置 -->
-                    <url>jdbc:mysql://localhost:3306/jooq_flyway?serverTimezone=Asia/Shanghai</url>
+                    <!-- 数据库配置(注意配置编码) -->
+                    <url>jdbc:mysql://localhost:3306/jooq_flyway?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;serverTimezone=Asia/Shanghai</url>
                     <user>root</user>
                     <password>123456</password>
                     <driver>com.mysql.jdbc.Driver</driver>
@@ -69,6 +162,7 @@
                 </configuration>
             </plugin>
             <plugin>
+<<<<<<< HEAD
                 <groupId>org.jooq</groupId>
                 <artifactId>jooq-codegen-maven</artifactId>
                 <executions>
@@ -116,6 +210,13 @@
                         </target>
 
                     </generator>
+=======
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+>>>>>>> c112044829dd185d68edd5b20ad418ec56fbaf08
                 </configuration>
             </plugin>
         </plugins>
