@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Row4;
@@ -26,12 +27,12 @@ import org.jooq.impl.TableImpl;
 
 
 /**
- * ?????
+ * 全局配置表
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Role extends TableImpl<RoleRecord> {
 
-    private static final long serialVersionUID = 613305467;
+    private static final long serialVersionUID = -287323516;
 
     /**
      * The reference instance of <code>jooq_flyway.role</code>
@@ -47,24 +48,24 @@ public class Role extends TableImpl<RoleRecord> {
     }
 
     /**
-     * The column <code>jooq_flyway.role.id</code>. ??ID
+     * The column <code>jooq_flyway.role.id</code>. 主键ID
      */
-    public final TableField<RoleRecord, Long> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "??ID");
+    public final TableField<RoleRecord, Long> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "主键ID");
 
     /**
-     * The column <code>jooq_flyway.role.user_id</code>. ??ID
+     * The column <code>jooq_flyway.role.user_id</code>. 用户ID
      */
-    public final TableField<RoleRecord, Long> USER_ID = createField(DSL.name("user_id"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.BIGINT)), this, "??ID");
+    public final TableField<RoleRecord, Long> USER_ID = createField(DSL.name("user_id"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.BIGINT)), this, "用户ID");
 
     /**
-     * The column <code>jooq_flyway.role.role_name</code>. ????
+     * The column <code>jooq_flyway.role.role_name</code>. 角色名称
      */
-    public final TableField<RoleRecord, String> ROLE_NAME = createField(DSL.name("role_name"), org.jooq.impl.SQLDataType.VARCHAR(64).nullable(false).defaultValue(org.jooq.impl.DSL.inline("", org.jooq.impl.SQLDataType.VARCHAR)), this, "????");
+    public final TableField<RoleRecord, String> ROLE_NAME = createField(DSL.name("role_name"), org.jooq.impl.SQLDataType.VARCHAR(64).nullable(false).defaultValue(org.jooq.impl.DSL.inline("", org.jooq.impl.SQLDataType.VARCHAR)), this, "角色名称");
 
     /**
-     * The column <code>jooq_flyway.role.create_at</code>. ????
+     * The column <code>jooq_flyway.role.create_at</code>. 创建时间
      */
-    public final TableField<RoleRecord, Long> CREATE_AT = createField(DSL.name("create_at"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.BIGINT)), this, "????");
+    public final TableField<RoleRecord, Long> CREATE_AT = createField(DSL.name("create_at"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.BIGINT)), this, "创建时间");
 
     /**
      * Create a <code>jooq_flyway.role</code> table reference
@@ -92,7 +93,7 @@ public class Role extends TableImpl<RoleRecord> {
     }
 
     private Role(Name alias, Table<RoleRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment("?????"), TableOptions.table());
+        super(alias, null, aliased, parameters, DSL.comment("全局配置表"), TableOptions.table());
     }
 
     public <O extends Record> Role(Table<O> child, ForeignKey<O, RoleRecord> key) {
@@ -102,6 +103,11 @@ public class Role extends TableImpl<RoleRecord> {
     @Override
     public Schema getSchema() {
         return JooqFlyway.JOOQ_FLYWAY;
+    }
+
+    @Override
+    public Identity<RoleRecord, Long> getIdentity() {
+        return Keys.IDENTITY_ROLE;
     }
 
     @Override

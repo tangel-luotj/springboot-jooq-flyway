@@ -10,7 +10,9 @@ function execJooq() {
 }
 
 function delJooq() {
-  rm -rf /Users/ganguo/project_my/springboot-jooq-flyway/src/main/java/generated_jooq
+#获取当前路径
+current_path=$(cd "$(dirname $0)";pwd)
+  rm -rf $current_path/src/main/java/generated_jooq
 }
 
 #执行flyway相关命令--操作数据库
@@ -23,6 +25,7 @@ function execFlyway() {
   mvn flyway:migrate
 }
 function delFlyWay() {
+  #数据库清除操作
   mvn flyway:clean
 }
 
@@ -30,7 +33,9 @@ function delFlyWay() {
 # 命令规范执行
 #   ./gradlew flywayClean flywayMigrate jooqClean jooq
 #   1、参数flywayMigrate = 执行执行更新数据库
-#   2、
+#   2、参数flywayClean   = 清除数据库
+#   3、参数JooqClean     = 生成jooq代码
+#   4、参数jooq          = 清除jooq生成的代码
 
 #接收界面传输的参数信息
 prop1=$1
@@ -42,6 +47,7 @@ echo "第二个参数" $prop2
 echo "第三个参数" $prop3
 echo "第四个参数" $prop4
 
+# shellcheck disable=SC2206
 array_prop=($prop1 $prop2 $prop3 $prop4)
 
 # shellcheck disable=SC2068
@@ -98,7 +104,7 @@ function jooq() {
     if [ $existJooqClean == true ]; then
       #先删除jooq生成的代码，后重新生成jooq代码
       echo "先删除jooq生成的代码，后重新生成jooq代码"
-      deldJooq
+      delJooq
       execJooq
     elif [ $existJooqClean == false ]; then
       #直接生成jooq代码
@@ -108,7 +114,7 @@ function jooq() {
   elif [ $existJooq == false ]; then
     if [ $existJooqClean == true ]; then
       echo "清除Jooq文件"
-      deldJooq
+      delJooq
     fi
   fi
 }

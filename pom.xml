@@ -15,6 +15,13 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <version>2.3.0.RELEASE</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+        <!-- 注解验证 -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
+        </dependency>
 
         <!-- 引入swagger -->
         <dependency>
@@ -33,6 +40,12 @@
             <groupId>org.wisdom-framework</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.34_1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jdbc -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <version>2.3.0.RELEASE</version>
         </dependency>
 
         <!-- 引入jooq -->
@@ -59,6 +72,17 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
             <version>5.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.1</version>
         </dependency>
 
     </dependencies>
@@ -109,9 +133,19 @@
                             <pojos>true</pojos>
                             <!--把数据库时间类型映射到java 8时间类型-->
                             <javaTimeTypes>true</javaTimeTypes>
-                            <!--<interfaces>true</interfaces>-->
+                            <!-- 生成interface -->
+                            <interfaces>true</interfaces>
                             <!--不在生成的代码中添加spring注释，比如@Repository-->
-                            <springAnnotations>false</springAnnotations>
+                            <springAnnotations>true</springAnnotations>
+                            <deprecated>false</deprecated>
+                            <relations>true</relations>
+                            <immutablePojos>false</immutablePojos>
+                            <generatedAnnotation>false</generatedAnnotation>
+                            <serializablePojos>true</serializablePojos>
+                            <pojosToString>true</pojosToString>
+                            <pojosEqualsAndHashCode>true</pojosEqualsAndHashCode>
+                            <fluentSetters>true</fluentSetters>
+                            <validationAnnotations>true</validationAnnotations>
                         </generate>
 
                         <target>
@@ -130,8 +164,8 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>4.0.3</version>
                 <configuration>
-                    <!-- 数据库配置 -->
-                    <url>jdbc:mysql://localhost:3306/jooq_flyway?serverTimezone=Asia/Shanghai</url>
+                    <!-- 数据库配置(注意配置编码) -->
+                    <url>jdbc:mysql://localhost:3306/jooq_flyway?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;serverTimezone=Asia/Shanghai</url>
                     <user>root</user>
                     <password>123456</password>
                     <driver>com.mysql.jdbc.Driver</driver>

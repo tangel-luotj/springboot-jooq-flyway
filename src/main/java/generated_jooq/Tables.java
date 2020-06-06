@@ -15,12 +15,12 @@ import generated_jooq.tables.User;
 public class Tables {
 
     /**
-     * ?????
+     * 全局配置表
      */
     public static final Role ROLE = Role.ROLE;
 
     /**
-     * ???
+     * 引导页
      */
     public static final User USER = User.USER;
 }

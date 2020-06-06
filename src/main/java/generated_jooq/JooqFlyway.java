@@ -21,7 +21,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class JooqFlyway extends SchemaImpl {
 
-    private static final long serialVersionUID = 1763064778;
+    private static final long serialVersionUID = -1083122583;
 
     /**
      * The reference instance of <code>jooq_flyway</code>
@@ -29,12 +29,12 @@ public class JooqFlyway extends SchemaImpl {
     public static final JooqFlyway JOOQ_FLYWAY = new JooqFlyway();
 
     /**
-     * ?????
+     * 全局配置表
      */
     public final Role ROLE = Role.ROLE;
 
     /**
-     * ???
+     * 引导页
      */
     public final User USER = User.USER;
 

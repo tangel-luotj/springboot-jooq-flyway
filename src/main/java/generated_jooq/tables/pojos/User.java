@@ -4,16 +4,18 @@
 package generated_jooq.tables.pojos;
 
 
-import java.io.Serializable;
+import generated_jooq.tables.interfaces.IUser;
+
+import javax.validation.constraints.Size;
 
 
 /**
- * ???
+ * 引导页
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class User implements Serializable {
+public class User implements IUser {
 
-    private static final long serialVersionUID = 150310017;
+    private static final long serialVersionUID = -456916955;
 
     private Long    id;
     private String  name;
@@ -23,12 +25,12 @@ public class User implements Serializable {
 
     public User() {}
 
-    public User(User value) {
-        this.id = value.id;
-        this.name = value.name;
-        this.age = value.age;
-        this.email = value.email;
-        this.createAt = value.createAt;
+    public User(IUser value) {
+        this.id = value.getId();
+        this.name = value.getName();
+        this.age = value.getAge();
+        this.email = value.getEmail();
+        this.createAt = value.getCreateAt();
     }
 
     public User(
@@ -45,44 +47,115 @@ public class User implements Serializable {
         this.createAt = createAt;
     }
 
+    @Override
     public Long getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    @Override
+    public User setId(Long id) {
         this.id = id;
+        return this;
     }
 
+    @Size(max = 30)
+    @Override
     public String getName() {
         return this.name;
     }
 
-    public void setName(String name) {
+    @Override
+    public User setName(String name) {
         this.name = name;
+        return this;
     }
 
+    @Override
     public Integer getAge() {
         return this.age;
     }
 
-    public void setAge(Integer age) {
+    @Override
+    public User setAge(Integer age) {
         this.age = age;
+        return this;
     }
 
+    @Size(max = 50)
+    @Override
     public String getEmail() {
         return this.email;
     }
 
-    public void setEmail(String email) {
+    @Override
+    public User setEmail(String email) {
         this.email = email;
+        return this;
     }
 
+    @Override
     public Long getCreateAt() {
         return this.createAt;
     }
 
-    public void setCreateAt(Long createAt) {
+    @Override
+    public User setCreateAt(Long createAt) {
         this.createAt = createAt;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final User other = (User) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        }
+        else if (!id.equals(other.id))
+            return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        }
+        else if (!name.equals(other.name))
+            return false;
+        if (age == null) {
+            if (other.age != null)
+                return false;
+        }
+        else if (!age.equals(other.age))
+            return false;
+        if (email == null) {
+            if (other.email != null)
+                return false;
+        }
+        else if (!email.equals(other.email))
+            return false;
+        if (createAt == null) {
+            if (other.createAt != null)
+                return false;
+        }
+        else if (!createAt.equals(other.createAt))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
+        result = prime * result + ((this.age == null) ? 0 : this.age.hashCode());
+        result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
+        result = prime * result + ((this.createAt == null) ? 0 : this.createAt.hashCode());
+        return result;
     }
 
     @Override
@@ -97,5 +170,24 @@ public class User implements Serializable {
 
         sb.append(")");
         return sb.toString();
+    }
+
+    // -------------------------------------------------------------------------
+    // FROM and INTO
+    // -------------------------------------------------------------------------
+
+    @Override
+    public void from(IUser from) {
+        setId(from.getId());
+        setName(from.getName());
+        setAge(from.getAge());
+        setEmail(from.getEmail());
+        setCreateAt(from.getCreateAt());
+    }
+
+    @Override
+    public <E extends IUser> E into(E into) {
+        into.from(this);
+        return into;
     }
 }
