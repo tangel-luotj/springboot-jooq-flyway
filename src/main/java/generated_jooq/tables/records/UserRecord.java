@@ -5,6 +5,9 @@ package generated_jooq.tables.records;
 
 
 import generated_jooq.tables.User;
+import generated_jooq.tables.interfaces.IUser;
+
+import javax.validation.constraints.Size;
 
 import org.jooq.Field;
 import org.jooq.Record1;
@@ -14,79 +17,96 @@ import org.jooq.impl.UpdatableRecordImpl;
 
 
 /**
- * ???
+ * 引导页
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Record5<Long, String, Integer, String, Long> {
+public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Record5<Long, String, Integer, String, Long>, IUser {
 
-    private static final long serialVersionUID = 1155539835;
+    private static final long serialVersionUID = -2048333370;
 
     /**
-     * Setter for <code>jooq_flyway.user.id</code>. ??ID
+     * Setter for <code>jooq_flyway.user.id</code>. 主键ID
      */
-    public void setId(Long value) {
+    @Override
+    public UserRecord setId(Long value) {
         set(0, value);
+        return this;
     }
 
     /**
-     * Getter for <code>jooq_flyway.user.id</code>. ??ID
+     * Getter for <code>jooq_flyway.user.id</code>. 主键ID
      */
+    @Override
     public Long getId() {
         return (Long) get(0);
     }
 
     /**
-     * Setter for <code>jooq_flyway.user.name</code>. ??
+     * Setter for <code>jooq_flyway.user.name</code>. 姓名
      */
-    public void setName(String value) {
+    @Override
+    public UserRecord setName(String value) {
         set(1, value);
+        return this;
     }
 
     /**
-     * Getter for <code>jooq_flyway.user.name</code>. ??
+     * Getter for <code>jooq_flyway.user.name</code>. 姓名
      */
+    @Size(max = 30)
+    @Override
     public String getName() {
         return (String) get(1);
     }
 
     /**
-     * Setter for <code>jooq_flyway.user.age</code>. ??
+     * Setter for <code>jooq_flyway.user.age</code>. 年龄
      */
-    public void setAge(Integer value) {
+    @Override
+    public UserRecord setAge(Integer value) {
         set(2, value);
+        return this;
     }
 
     /**
-     * Getter for <code>jooq_flyway.user.age</code>. ??
+     * Getter for <code>jooq_flyway.user.age</code>. 年龄
      */
+    @Override
     public Integer getAge() {
         return (Integer) get(2);
     }
 
     /**
-     * Setter for <code>jooq_flyway.user.email</code>. ??
+     * Setter for <code>jooq_flyway.user.email</code>. 邮箱
      */
-    public void setEmail(String value) {
+    @Override
+    public UserRecord setEmail(String value) {
         set(3, value);
+        return this;
     }
 
     /**
-     * Getter for <code>jooq_flyway.user.email</code>. ??
+     * Getter for <code>jooq_flyway.user.email</code>. 邮箱
      */
+    @Size(max = 50)
+    @Override
     public String getEmail() {
         return (String) get(3);
     }
 
     /**
-     * Setter for <code>jooq_flyway.user.create_at</code>. ????
+     * Setter for <code>jooq_flyway.user.create_at</code>. 创建时间
      */
-    public void setCreateAt(Long value) {
+    @Override
+    public UserRecord setCreateAt(Long value) {
         set(4, value);
+        return this;
     }
 
     /**
-     * Getter for <code>jooq_flyway.user.create_at</code>. ????
+     * Getter for <code>jooq_flyway.user.create_at</code>. 创建时间
      */
+    @Override
     public Long getCreateAt() {
         return (Long) get(4);
     }
@@ -227,6 +247,25 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Recor
         value4(value4);
         value5(value5);
         return this;
+    }
+
+    // -------------------------------------------------------------------------
+    // FROM and INTO
+    // -------------------------------------------------------------------------
+
+    @Override
+    public void from(IUser from) {
+        setId(from.getId());
+        setName(from.getName());
+        setAge(from.getAge());
+        setEmail(from.getEmail());
+        setCreateAt(from.getCreateAt());
+    }
+
+    @Override
+    public <E extends IUser> E into(E into) {
+        into.from(this);
+        return into;
     }
 
     // -------------------------------------------------------------------------

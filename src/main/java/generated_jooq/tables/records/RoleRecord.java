@@ -5,6 +5,9 @@ package generated_jooq.tables.records;
 
 
 import generated_jooq.tables.Role;
+import generated_jooq.tables.interfaces.IRole;
+
+import javax.validation.constraints.Size;
 
 import org.jooq.Field;
 import org.jooq.Record1;
@@ -14,65 +17,78 @@ import org.jooq.impl.UpdatableRecordImpl;
 
 
 /**
- * ?????
+ * 全局配置表
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class RoleRecord extends UpdatableRecordImpl<RoleRecord> implements Record4<Long, Long, String, Long> {
+public class RoleRecord extends UpdatableRecordImpl<RoleRecord> implements Record4<Long, Long, String, Long>, IRole {
 
-    private static final long serialVersionUID = 1149626845;
+    private static final long serialVersionUID = -1775758778;
 
     /**
-     * Setter for <code>jooq_flyway.role.id</code>. ??ID
+     * Setter for <code>jooq_flyway.role.id</code>. 主键ID
      */
-    public void setId(Long value) {
+    @Override
+    public RoleRecord setId(Long value) {
         set(0, value);
+        return this;
     }
 
     /**
-     * Getter for <code>jooq_flyway.role.id</code>. ??ID
+     * Getter for <code>jooq_flyway.role.id</code>. 主键ID
      */
+    @Override
     public Long getId() {
         return (Long) get(0);
     }
 
     /**
-     * Setter for <code>jooq_flyway.role.user_id</code>. ??ID
+     * Setter for <code>jooq_flyway.role.user_id</code>. 用户ID
      */
-    public void setUserId(Long value) {
+    @Override
+    public RoleRecord setUserId(Long value) {
         set(1, value);
+        return this;
     }
 
     /**
-     * Getter for <code>jooq_flyway.role.user_id</code>. ??ID
+     * Getter for <code>jooq_flyway.role.user_id</code>. 用户ID
      */
+    @Override
     public Long getUserId() {
         return (Long) get(1);
     }
 
     /**
-     * Setter for <code>jooq_flyway.role.role_name</code>. ????
+     * Setter for <code>jooq_flyway.role.role_name</code>. 角色名称
      */
-    public void setRoleName(String value) {
+    @Override
+    public RoleRecord setRoleName(String value) {
         set(2, value);
+        return this;
     }
 
     /**
-     * Getter for <code>jooq_flyway.role.role_name</code>. ????
+     * Getter for <code>jooq_flyway.role.role_name</code>. 角色名称
      */
+    @Size(max = 64)
+    @Override
     public String getRoleName() {
         return (String) get(2);
     }
 
     /**
-     * Setter for <code>jooq_flyway.role.create_at</code>. ????
+     * Setter for <code>jooq_flyway.role.create_at</code>. 创建时间
      */
-    public void setCreateAt(Long value) {
+    @Override
+    public RoleRecord setCreateAt(Long value) {
         set(3, value);
+        return this;
     }
 
     /**
-     * Getter for <code>jooq_flyway.role.create_at</code>. ????
+     * Getter for <code>jooq_flyway.role.create_at</code>. 创建时间
      */
+    @Override
     public Long getCreateAt() {
         return (Long) get(3);
     }
@@ -191,6 +207,24 @@ public class RoleRecord extends UpdatableRecordImpl<RoleRecord> implements Recor
         value3(value3);
         value4(value4);
         return this;
+    }
+
+    // -------------------------------------------------------------------------
+    // FROM and INTO
+    // -------------------------------------------------------------------------
+
+    @Override
+    public void from(IRole from) {
+        setId(from.getId());
+        setUserId(from.getUserId());
+        setRoleName(from.getRoleName());
+        setCreateAt(from.getCreateAt());
+    }
+
+    @Override
+    public <E extends IRole> E into(E into) {
+        into.from(this);
+        return into;
     }
 
     // -------------------------------------------------------------------------

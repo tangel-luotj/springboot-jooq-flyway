@@ -1,7 +1,7 @@
 -- 用户表
 CREATE TABLE user
 (
-    id              BIGINT(20)          NOT NULL COMMENT '主键ID',
+    id              BIGINT(20)          NOT NULL COMMENT '主键ID' AUTO_INCREMENT,
     name            VARCHAR(30)         NOT NULL DEFAULT '' COMMENT '姓名',
     age             INT(11)             NOT NULL DEFAULT 0 COMMENT '年龄',
     email           VARCHAR(50)         NOT NULL DEFAULT '' COMMENT '邮箱',

@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Row5;
@@ -26,12 +27,12 @@ import org.jooq.impl.TableImpl;
 
 
 /**
- * ???
+ * 引导页
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends TableImpl<UserRecord> {
 
-    private static final long serialVersionUID = -1283936228;
+    private static final long serialVersionUID = -334974879;
 
     /**
      * The reference instance of <code>jooq_flyway.user</code>
@@ -47,29 +48,29 @@ public class User extends TableImpl<UserRecord> {
     }
 
     /**
-     * The column <code>jooq_flyway.user.id</code>. ??ID
+     * The column <code>jooq_flyway.user.id</code>. 主键ID
      */
-    public final TableField<UserRecord, Long> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "??ID");
+    public final TableField<UserRecord, Long> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "主键ID");
 
     /**
-     * The column <code>jooq_flyway.user.name</code>. ??
+     * The column <code>jooq_flyway.user.name</code>. 姓名
      */
-    public final TableField<UserRecord, String> NAME = createField(DSL.name("name"), org.jooq.impl.SQLDataType.VARCHAR(30).nullable(false).defaultValue(org.jooq.impl.DSL.inline("", org.jooq.impl.SQLDataType.VARCHAR)), this, "??");
+    public final TableField<UserRecord, String> NAME = createField(DSL.name("name"), org.jooq.impl.SQLDataType.VARCHAR(30).nullable(false).defaultValue(org.jooq.impl.DSL.inline("", org.jooq.impl.SQLDataType.VARCHAR)), this, "姓名");
 
     /**
-     * The column <code>jooq_flyway.user.age</code>. ??
+     * The column <code>jooq_flyway.user.age</code>. 年龄
      */
-    public final TableField<UserRecord, Integer> AGE = createField(DSL.name("age"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.INTEGER)), this, "??");
+    public final TableField<UserRecord, Integer> AGE = createField(DSL.name("age"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.INTEGER)), this, "年龄");
 
     /**
-     * The column <code>jooq_flyway.user.email</code>. ??
+     * The column <code>jooq_flyway.user.email</code>. 邮箱
      */
-    public final TableField<UserRecord, String> EMAIL = createField(DSL.name("email"), org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false).defaultValue(org.jooq.impl.DSL.inline("", org.jooq.impl.SQLDataType.VARCHAR)), this, "??");
+    public final TableField<UserRecord, String> EMAIL = createField(DSL.name("email"), org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false).defaultValue(org.jooq.impl.DSL.inline("", org.jooq.impl.SQLDataType.VARCHAR)), this, "邮箱");
 
     /**
-     * The column <code>jooq_flyway.user.create_at</code>. ????
+     * The column <code>jooq_flyway.user.create_at</code>. 创建时间
      */
-    public final TableField<UserRecord, Long> CREATE_AT = createField(DSL.name("create_at"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.BIGINT)), this, "????");
+    public final TableField<UserRecord, Long> CREATE_AT = createField(DSL.name("create_at"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.BIGINT)), this, "创建时间");
 
     /**
      * Create a <code>jooq_flyway.user</code> table reference
@@ -97,7 +98,7 @@ public class User extends TableImpl<UserRecord> {
     }
 
     private User(Name alias, Table<UserRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment("???"), TableOptions.table());
+        super(alias, null, aliased, parameters, DSL.comment("引导页"), TableOptions.table());
     }
 
     public <O extends Record> User(Table<O> child, ForeignKey<O, UserRecord> key) {
@@ -107,6 +108,11 @@ public class User extends TableImpl<UserRecord> {
     @Override
     public Schema getSchema() {
         return JooqFlyway.JOOQ_FLYWAY;
+    }
+
+    @Override
+    public Identity<UserRecord, Long> getIdentity() {
+        return Keys.IDENTITY_USER;
     }
 
     @Override
